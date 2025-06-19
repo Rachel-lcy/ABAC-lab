@@ -1,0 +1,29 @@
+{
+  "name": "abac-lab",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rachel-lcy/ABAC-lab.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rachel-lcy/ABAC-lab/issues"
+  },
+  "homepage": "https://github.com/Rachel-lcy/ABAC-lab#readme",
+  "description": "",
+  "dependencies": {
+    "argon2": "^0.43.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.0",
+    "multer": "^2.0.1"
+  }
+}
