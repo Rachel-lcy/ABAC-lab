@@ -1,6 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import { config, configDotenv } from 'dotenv'
+import { configDotenv } from 'dotenv'
 import http from 'http'
 import userRouter from './routes/user.js'
 import fileRouter from './routes/file.js'
@@ -9,7 +9,8 @@ configDotenv()
 
 const app = express()
 app.use(express.json())
-
+app.use("/file", fileRouter)
+app.use('/user', userRouter)
 const server = http.createServer(app)
 
 mongoose.connect("mongodb://localhost:27017/abac_lab")

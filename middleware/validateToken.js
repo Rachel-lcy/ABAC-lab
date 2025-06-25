@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 const validateJWT = (req,res,next) => {
-  const token = req.header('Authorization'). replace('Bearer','');
+  const token = req.header('Authorization'). replace('Bearer ','');
   if (!token) {
      return res.status(401).json({
       message: 'NO token, authorization denied'
@@ -11,7 +11,7 @@ const validateJWT = (req,res,next) => {
   try{
 
     // extract user info from token
-    const user = jwt.decode(token, process.env.JWT_SECRETE);
+    const user = jwt.verify(token, process.env.JWT_SECRET);
     // put user info in req object to easy access
     req.user = user;
     //calling next middleware in the chain
@@ -19,9 +19,8 @@ const validateJWT = (req,res,next) => {
 
   }
   catch(err){
-    res.status(500).json({message: 'interval server error'})
     console.log(err)
-
+    return res.status(500).json({message: 'interval server error'})
   }
 }
 

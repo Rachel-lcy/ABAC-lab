@@ -2,6 +2,9 @@ import express from 'express'
 import argon2 from 'argon2'
 import jwt from 'jsonwebtoken'
 import User from '../models/User.js';
+import { configDotenv } from 'dotenv'
+
+configDotenv()
 
 const userRouter = express .Router();
 
@@ -18,7 +21,7 @@ userRouter.post('/register' , async(req, res) => {
 
   try{
     const newUser = new User({username, userId, hashPassword,role, department})
-    await newUser.sava(); // saving new user info in DB
+    await newUser.save(); // saving new user info in DB
 
     res.status(201).json({
       message: 'User Created',
@@ -57,6 +60,7 @@ userRouter.get('/login', async (req, res) => {
       return res.status(400).json({message: "Invalid username or password"})
     }
 
+    console.log(process.env.JWT_SECRET)
     const jwtToken = jwt.sign(
       {
         userId:user.userId,
@@ -64,7 +68,7 @@ userRouter.get('/login', async (req, res) => {
         department: user.department,
         role: user.role,
       },
-      process.env.JWT_SECRETE,
+      process.env.JWT_SECRET,
       {
         expiresIn: '1h'
       }
@@ -79,7 +83,7 @@ userRouter.get('/login', async (req, res) => {
   }
   catch(err){
     console.log(err)
-
+    return res.status(500).json({message: "Internal server error"})
   }
 })
 
